@@ -15,7 +15,7 @@ Các ứng dụng để thừa kế, đặc biệt là một hình thức cho re
 Kết nối với tài liệu phần mềm tự động
 ## Nội dung
 
-Ý tưởng chính của DbC là một phép ẩn dụ về cách các yếu tố của một hệ thống phần mềm cộng tác với nhau trên cơ sở các nghĩa vụ và lợi ích chung. Ẩn dụ xuất phát từ cuộc sống công việc, nơi “khách hàng” và “nhà cung cấp” đồng ý với “hợp đồng” xác định, ví dụ:
+Ý tưởng chính của DbC là một phép ẩn dụ về cách các yếu tố của một hệ thống phần mềm tương tác với nhau trên cơ sở các nghĩa vụ và lợi ích chung. Ẩn dụ xuất phát từ cuộc sống công việc, nơi “khách hàng” và “nhà cung cấp” đồng ý với “hợp đồng” xác định, ví dụ:
 * Nhà cung cấp phải cung cấp một sản phẩm nhất định (nghĩa vụ) và hi vọng khách hàng đã thanh toán phí (lợi ích) của mình.
 * Khách hàng phải trả phí (nghĩa vụ) và được quyền nhận sản phẩm (lợi ích).
 * Cả hai bên phải đáp ứng các nghĩa vụ nhất định, chẳng hạn như luật và quy định, áp dụng cho tất cả các hợp đồng.
@@ -26,15 +26,15 @@ Tương tự, nếu một đoạn chương trình từ một lớp trong lập t
 * Đảm bảo một thuộc tính nhất định về xuất cảnh :postconditions — một nghĩa vụ đối với nhà cung cấp, và rõ ràng là một lợi ích (lợi ích chính của việc gọi thường trình) cho khách hàng.
 * Duy trì một tài sản nhất định, giả định về đầu vào và được bảo đảm khi thoát: lớp bất biến.
 
-Hợp đồng này tương đương về mặt ngữ nghĩa với một luật Hoare triple,  hình thức hóa các nghĩa vụ. Điều này có thể được tóm tắt bằng "ba câu hỏi" mà nhà thiết kế phải nhiều lần trả lời trong hợp đồng:
+Hợp đồng này tương đương về mặt ngữ nghĩa với một luật Hoare triple,  hình thành các nghĩa vụ. Điều này có thể được tóm tắt bằng "ba câu hỏi" mà nhà thiết kế phải nhiều lần trả lời trong hợp đồng:
 
-* Hợp đồng kỳ vọng là gì?
-* Bảo đảm hợp đồng là gì?
-* Hợp đồng duy trì là gì?
+* Mong đợi cái gì từ hợp đồng?
+* Cái gì đảm bảo đảm hợp đồng?
+* Cái gì duy trì hợp đồng duy trì?
 
 Nhiều ngôn ngữ lập trình có cơ sở để đưa ra các xác nhận như thế này. Tuy nhiên, DbC coi các hợp đồng này là rất quan trọng đối với tính chính xác của phần mềm mà chúng phải là một phần của quá trình thiết kế. Trong thực tế, DbC chủ trương viết các xác nhận đầu tiên. Các hợp đồng có thể được viết bằng các chú thích code, được thi hành bởi một bộ kiểm thử, hoặc cả hai, ngay cả khi không có sự hỗ trợ ngôn ngữ đặc biệt cho các hợp đồng.
 
-Khái niệm về hợp đồng kéo dài xuống mức phương thức / thủ tục; hợp đồng cho mỗi phương pháp thường sẽ chứa các thông tin sau: [_ citation needed_]
+Khái niệm về hợp đồng kéo dài xuống mức phương thức / thủ tục; hợp đồng cho mỗi phương thức thường sẽ chứa các thông tin sau: [_ citation needed_]
 
 * Các giá trị hoặc loại đầu vào được chấp nhận và không được chấp nhận và ý nghĩa của chúng
 * Trả lại giá trị hoặc loại và ý nghĩa của chúng
@@ -47,7 +47,7 @@ Khái niệm về hợp đồng kéo dài xuống mức phương thức / thủ 
 
 Các lớp con trong một hệ thống phân cấp thừa kế được phép làm suy yếu các điều kiện tiên quyết (nhưng không tăng cường chúng) và tăng cường các điều kiện và bất biến (nhưng không làm suy yếu chúng). Những quy tắc này gần đúng về phân loại hành vi.
 
-Tất cả các mối quan hệ lớp nằm giữa giữa các lớp khách và các lớp nhà cung cấp. Một lớp khách có nghĩa vụ thực hiện các cuộc gọi đến các tính năng của nhà cung cấp, nơi trạng thái kết quả của nhà cung cấp không bị vi phạm bởi cuộc gọi của khách hàng. Sau đó, nhà cung cấp có nghĩa vụ cung cấp trạng thái trả lại và dữ liệu không vi phạm các yêu cầu của tiểu bang của khách hàng. Ví dụ, bộ đệm dữ liệu của nhà cung cấp có thể yêu cầu dữ liệu đó có trong bộ đệm khi một tính năng xóa được gọi. Sau đó, nhà cung cấp đảm bảo cho khách hàng rằng khi một tính năng xóa kết thúc công việc của nó, mục dữ liệu sẽ thực sự bị xóa khỏi bộ đệm. Các hợp đồng thiết kế khác là các khái niệm về “bất biến lớp”. Lớp bảo đảm bất biến (đối với lớp địa phương) rằng trạng thái của lớp sẽ được duy trì trong các dung sai được chỉ định ở cuối mỗi thực thi tính năng.
+Tất cả các mối quan hệ lớp là giữa các lớp khách và các lớp nhà cung cấp. Một lớp khách có nghĩa vụ thực hiện các lời gọi đến các tính năng của nhà cung cấp, nơi trạng thái kết quả của nhà cung cấp không bị vi phạm bởi cuộc gọi của khách hàng. Sau đó, nhà cung cấp có nghĩa vụ cung cấp trạng thái trả lại và dữ liệu không vi phạm các yêu cầu của tiểu bang của khách hàng. Ví dụ, bộ đệm dữ liệu của nhà cung cấp có thể yêu cầu dữ liệu đó có trong bộ đệm khi một tính năng xóa được gọi. Sau đó, nhà cung cấp đảm bảo cho khách hàng rằng khi một tính năng xóa kết thúc công việc của nó, mục dữ liệu sẽ thực sự bị xóa khỏi bộ đệm. Các hợp đồng thiết kế khác là các khái niệm về “bất biến lớp”. Lớp bảo đảm bất biến (đối với lớp địa phương) rằng trạng thái của lớp sẽ được duy trì trong các dung sai được chỉ định ở cuối mỗi thực thi tính năng.
 
 Khi sử dụng hợp đồng, nhà cung cấp không nên cố gắng xác minh rằng các điều kiện hợp đồng được thỏa mãn; ý tưởng chung là code sẽ "fail hard", với xác minh hợp đồng là mạng lưới an toàn.Thuộc tính "fail hard" của DbC đơn giản hoá việc gỡ rối hành vi hợp đồng, vì hành vi dự định của từng thói quen được xác định rõ ràng. Điều này phân biệt nó rõ ràng từ một thực hành liên quan được gọi là lập trình phòng thủ, nơi mà các nhà cung cấp chịu trách nhiệm cho việc tìm ra phải làm gì khi một preconditions bị phá vỡ.Trong một vài trường hợp, nhà cung cấp ném một ngoại lệ để thông báo cho khách hàng rằng preconditions đã bị phá vỡ, và trong cả hai trường hợp - DbC và lập trình phòng thủ — khách hàng phải tìm ra cách để đáp ứng điều đó. DbC giúp công việc của nhà cung cấp dễ dàng hơn.
 
